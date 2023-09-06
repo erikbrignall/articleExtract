@@ -48,7 +48,7 @@ def extract_values(obj, key):
 
 
 
-if uploaded_file is not None:
+if filename is not None:
 
     #filename = "example_articles.csv"
     dfArt = pd.read_csv(filename)
