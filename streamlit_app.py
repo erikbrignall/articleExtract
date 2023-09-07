@@ -123,3 +123,12 @@ if filename is not None:
         time.sleep(5)
 
 st.dataframe(dfA, width=800)
+def convert_df_to_csv(df):
+  return df.to_csv().encode('utf-8')
+
+st.download_button(
+  label="Download data as CSV",
+  data=convert_df_to_csv(dfA),
+  file_name='article_summarys.csv',
+  mime='text/csv',
+)
