@@ -58,7 +58,7 @@ if filename is not None:
         article = article.replace('\n', ' ')
 
         messages=[
-                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 3 different pieces of content from a provided news article and structure them in the format: title: a suggested article title of around 6-10 words, summary: a 20 word summary of the article, places: the primary geographical place to which the article refers"},
+                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces of content from a provided news article and structure them in the format: date: use the date 14/09/2023, title: a suggested article title of around 10 words, vehicles: the number of caravans if mentioned, place: the primary geographical place to which the article refers, county: the county in which the location sits if you can infer that from the location, source: the news publication from which the article is sourced which can be inferred from the URL"},
                 {"role": "user", "content": article}
             ]
 
