@@ -73,6 +73,8 @@ if filename is not None:
         response_text = response.choices[0].message.content
         response_text = response_text.replace('\n', ' ').lower()
 
+        st.write(response_text)
+            
         # extract individual elements from response
 
         ## TITLE
