@@ -22,7 +22,7 @@ st.title('News Data Extractor - DEMO')
 st.write('Upload the CSv containing the article list with each article as an individual text field in column 1')
 filename = st.file_uploader('Upload a CSV file', type=['csv'])
 
-dfACols = {'title': [],'summary': [],'location': [], 'latlong': []}
+dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': []}
 dfA = pd.DataFrame(data = dfACols)
 
 ## The below function loops through the JSON structure and returns any value matching the key
@@ -77,18 +77,28 @@ if filename is not None:
             
         # extract individual elements from response
 
+        ## DATE
+        pattern = r'date: (.*?)title:'
+        match = re.findall(pattern, response_text)
+        art_date = match[0]
+            
         ## TITLE
-        pattern = r'title: (.*?)summary:'
+        pattern = r'title: (.*?)vehicles:'
         match = re.findall(pattern, response_text)
         art_title = match[0]
-
-        ## SUMMARY
-        pattern = r'summary: (.*?)places:'
+        
+        ## VEHICLES
+        pattern = r'vehicles: (.*?)place:'
         match = re.findall(pattern, response_text)
-        art_summary = match[0]
+        art_vehicles = match[0]
 
-        ## PLACES
-        pattern = r'places: (.*)'
+        ## COUNTY
+        pattern = r'county: (.*?)source:'
+        match = re.findall(pattern, response_text)
+        art_county = match[0]
+
+        ## PLACE
+        pattern = r'place: (.*)county:'
         match = re.findall(pattern, response_text)
         places = match[0]
         placeurl = quote(places)
@@ -119,7 +129,7 @@ if filename is not None:
 
                 latlong = lat + ", " + long
 
-        record = [art_title,art_summary,places,latlong]
+        record = [art_date,art_title,art_vehicles,places,art_county,latlong]
 
         dfA.loc[len(dfA)] = record
         time.sleep(5)
