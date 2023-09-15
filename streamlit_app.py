@@ -53,7 +53,9 @@ if user_input is not None:
         article = user_input.replace('\n', ' ')
 
         messages=[
-                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces of content from a provided news article and structure them in the format: date: use the date 14/09/2023, title: a suggested article title of around 10 words, vehicles: the number of caravans if mentioned, place: the primary geographical place to which the article refers, county: the county in which the location sits if you can infer that from the location, source: the news publication from which the article is sourced which can be inferred from the URL"},
+                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces\
+                of content from a provided news article and structure them in the format: date: use the date 14/09/2023, title: a suggested\
+                article title of around 10 words, vehicles: the number of caravans or vehicles if mentioned as an integer, place: the primary geographical place to which the article refers, county: the county in which the location sits if you can infer that from the location, source: the news publication from which the article is sourced which can be inferred from the URL"},
                 {"role": "user", "content": article}
             ]
 
