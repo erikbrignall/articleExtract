@@ -48,7 +48,7 @@ def extract_values(obj, key):
         results = extract(obj, arr, key)
         return results
 
-dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': []}
+dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': [], 'source': []}
 dfA = pd.DataFrame(data = dfACols)
 
 if submit_button and user_input is not None:
