@@ -84,15 +84,21 @@ if submit_button and user_input is not None:
         # extract individual elements from response
 
         ## DATE
-        pattern = r'date: (.*?)title:'
-        match = re.findall(pattern, response_text)
-        art_date = match[0]
+        try:
+            pattern = r'date: (.*?)title:'
+            match = re.findall(pattern, response_text)
+            art_date = match[0]
+        except:
+            art_date = "unknown"
             
         ## TITLE
-        pattern = r'title: (.*?)vehicles:'
-        match = re.findall(pattern, response_text)
-        art_title = match[0]
-        
+        try:
+            pattern = r'title: (.*?)vehicles:'
+            match = re.findall(pattern, response_text)
+            art_title = match[0]
+        except:
+            art_title = "unknown"
+
         ## VEHICLES
         pattern = r'vehicles: (.*?)place:'
         match = re.findall(pattern, response_text)
