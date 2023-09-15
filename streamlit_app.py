@@ -63,7 +63,7 @@ if submit_button and user_input is not None:
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
                 place: the primary geographical place to which the article refers,\
                 county: the UK county in which the location sits if you can infer that from the location, \
-                source: the src URL if given")},
+                source: the src URL if given)"},
                 {"role": "user", "content": article}
             ]
 
