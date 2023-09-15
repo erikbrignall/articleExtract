@@ -64,7 +64,7 @@ if submit_button and user_input is not None:
                 place: the place where the encampment has occured,\
                 county: the UK county for the location if you can infer that from the location, \
                 type of land: specify public/private if found, \
-                source: the URL of the article if given)"},
+                source: the first URL given in the text is any)"},
                 {"role": "user", "content": article}
             ]
 
@@ -112,7 +112,7 @@ if submit_button and user_input is not None:
         ## TYPELAND
         pattern = r'type of land: (.*?)source:'
         match = re.findall(pattern, response_text)
-        art_county = match[0]
+        type_land = match[0]
 
         ##SOURCE
         pattern = r'source: (.*)'
