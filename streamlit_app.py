@@ -61,7 +61,7 @@ if submit_button and user_input is not None:
                 date: the date of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
-                place: the precise place where the encampment has occured for example which car park or playing field in which town,\
+                place: the address where the encampment has occured including street, town and county if given,\
                 county: the UK county for the location if you can infer that from the location, \
                 type of land: specify public/private if found, \
                 source: the first URL given in the text is any)"},
