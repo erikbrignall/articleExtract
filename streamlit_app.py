@@ -141,7 +141,7 @@ if submit_button and user_input is not None:
 
         record = [art_date,art_title,art_vehicles,places,art_county,latlong,art_source]
 
-        dfA.loc[len(dfA)] = record
+        dfA.loc[1] = record
         time.sleep(5)
 
 st.dataframe(dfA, width=800)
