@@ -22,7 +22,10 @@ st.title('News Data Extractor - DEMO')
 st.write('Paste the article to be analysed in the field below. Ideally paste: Title, URL, Article content as text')
 
 # Create a large text input field
-user_input = st.text_area("Enter Text Here", height=200)
+with st.form(key='my_form_to_submit'):
+    st.write('Please input your query to generate the appropriate chart:')
+    user_input = st.text_area("Enter Text Here", height=300)
+    submit_button = st.form_submit_button(label='Submit')
 
 ## The below function loops through the JSON structure and returns any value matching the key
 def extract_values(obj, key):
@@ -48,7 +51,7 @@ def extract_values(obj, key):
 dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': []}
 dfA = pd.DataFrame(data = dfACols)
 
-if user_input is not None:
+if submit_button and user_input is not None:
 
         article = user_input.replace('\n', ' ')
 
