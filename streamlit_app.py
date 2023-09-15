@@ -61,9 +61,9 @@ if submit_button and user_input is not None:
                 date: the data of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 10 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
-                place: the primary geographical place to which the article refers,\
+                place: the most detailed place name to which the article refers,\
                 county: the UK county in which the location sits if you can infer that from the location, \
-                source: the src URL if given)"},
+                source: the URL of the article if given)"},
                 {"role": "user", "content": article}
             ]
 
