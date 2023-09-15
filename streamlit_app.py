@@ -57,13 +57,13 @@ if submit_button and user_input is not None:
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces\
-                of content from a provided news article and structure them in the format: \
-                date: use the date 14/09/2023, \
+                of content from a provided news article and structure them in the following format including the field name exactly as specified ( \
+                date: the data of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 10 words, \
-                vehicles: the number of caravans or vehicles if mentioned as an integer, \
+                vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
                 place: the primary geographical place to which the article refers,\
                 county: the UK county in which the location sits if you can infer that from the location, \
-                source: the src URL if given"},
+                source: the src URL if given")},
                 {"role": "user", "content": article}
             ]
 
