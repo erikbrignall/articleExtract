@@ -92,95 +92,95 @@ if submit_button and user_input is not None:
         #    art_date = response_text["date"]
     
         ## TITLE
-        try:
-            pattern = r'title: (.*?)vehicles:'
-            match = re.findall(pattern, response_text)
-            art_title = match[0]
-        except:
-            art_title = response_text["title"]
+        #try:
+        #    pattern = r'title: (.*?)vehicles:'
+        #    match = re.findall(pattern, response_text)
+        #    art_title = match[0]
+        #except:
+        #    art_title = response_text["title"]
 
         ## VEHICLES
-        try:    
-            pattern = r'vehicles: (.*?)place:'
-            match = re.findall(pattern, response_text)
-            art_vehicles = match[0]
-        except:
-            art_vehicles = response_text["vehicles"]
+        #try:    
+        #    pattern = r'vehicles: (.*?)place:'
+        #    match = re.findall(pattern, response_text)
+        #    art_vehicles = match[0]
+        #except:
+        #    art_vehicles = response_text["vehicles"]
             
         ## COUNTY
-        try:
-            pattern = r'county: (.*?)type of land:'
-            match = re.findall(pattern, response_text)
-            art_county = response.text["county"]
-        except:
-            art_county = "unknown"
+        #try:
+        #    pattern = r'county: (.*?)type of land:'
+        #    match = re.findall(pattern, response_text)
+        #    art_county = response.text["county"]
+        #except:
+        #    art_county = "unknown"
 
         ## PLACE
-        try:
-            pattern = r'place: (.*)county:'
-            match = re.findall(pattern, response_text)
-            places = match[0]
-            placeurl = quote(places)
-        except:
-            places = response.text["place"]
-            placeurl = quote(places)
+        #try:
+        #    pattern = r'place: (.*)county:'
+        #    match = re.findall(pattern, response_text)
+        #    places = match[0]
+        #    placeurl = quote(places)
+        #except:
+        #    places = response.text["place"]
+        #    placeurl = quote(places)
         
         ## TYPELAND
-        try:
-            pattern = r'type of land: (.*?)source:'
-            match = re.findall(pattern, response_text)
-            type_land = match[0]
-        except:
-            type_land = response_text["typeofland"]
+        #try:
+        #    pattern = r'type of land: (.*?)source:'
+        #    match = re.findall(pattern, response_text)
+        #    type_land = match[0]
+        #except:
+        #    type_land = response_text["typeofland"]
         
         ##SOURCE
-        try:    
-            pattern = r'source: (.*)'
-            match = re.findall(pattern, response_text)
-            art_source = match[0]
-        except:
-            art_source = response_text["source"]
+        #try:    
+        #    pattern = r'source: (.*)'
+        #    match = re.findall(pattern, response_text)
+        #    art_source = match[0]
+        #except:
+        #    art_source = response_text["source"]
 
         ## EXTRACT LAT LONG FOR PLACENAME
-        url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
+        #url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
 
-        try:    
-            responseloc = requests.get(url)
-            data = json.dumps(responseloc.json(), sort_keys=True, indent=4)
-            data = json.loads(data)
-        except:
-            data = "no response"
+        #try:    
+        #    responseloc = requests.get(url)
+        #    data = json.dumps(responseloc.json(), sort_keys=True, indent=4)
+        #    data = json.loads(data)
+        #except:
+        #    data = "no response"
 
-        if data != "no response":
-                try:
-                    lat = extract_values(data,"lat")
-                    lat = str(lat[0])
-                    lat = lat[:7]
+        #if data != "no response":
+        #        try:
+        #            lat = extract_values(data,"lat")
+        #            lat = str(lat[0])
+        #            lat = lat[:7]
                     
-                except:
-                    lat = "not found"
+        #        except:
+        #            lat = "not found"
 
-                try:
-                    long = extract_values(data,"lng")
-                    long = str(long[0])
-                    long = long[:7]
-                except:
-                    long = "not found"
+        #        try:
+        #            long = extract_values(data,"lng")
+        #            long = str(long[0])
+        #            long = long[:7]
+        #        except:
+        #            long = "not found"
 
-                latlong = lat + ", " + long
+        #       latlong = lat + ", " + long
 
-        record = [art_date,art_title,art_vehicles,places,type_land,art_county,latlong,art_source]
+        #record = [art_date,art_title,art_vehicles,places,type_land,art_county,latlong,art_source]
 
-        dfA.loc[1] = record
-        time.sleep(5)
+        #dfA.loc[1] = record
+        #time.sleep(5)
 
-st.dataframe(dfA, width=800)
-def convert_df_to_csv(df):
-  return df.to_csv().encode('utf-8')
+#st.dataframe(dfA, width=800)
+#def convert_df_to_csv(df):
+#  return df.to_csv().encode('utf-8')
 
-st.download_button(
-  label="Download data as CSV",
-  data=convert_df_to_csv(dfA),
-  file_name='article_summarys.csv',
-  mime='text/csv',
-)
+#st.download_button(
+#  label="Download data as CSV",
+#  data=convert_df_to_csv(dfA),
+#  file_name='article_summarys.csv',
+#  mime='text/csv',
+#) 
