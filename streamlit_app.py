@@ -19,7 +19,7 @@ GPapikey = st.secrets["GPapikey"]
 st.title('News Data Extractor - DEMO')
 
 # UPLOAD ARTICLES
-st.write('Paste the article to be analysed in the field below. Ideally paste: Title, URL, Article content as text')')
+st.write('Paste the article to be analysed in the field below. Ideally paste: Title, URL, Article content as text')
 
 # Create a large text input field
 user_input = st.text_area("Enter Text Here", height=300)
