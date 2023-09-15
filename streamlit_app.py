@@ -123,6 +123,7 @@ if submit_button and user_input is not None:
             placeurl = quote(places)
         except:
             places = "unknown"
+            placeurl = "unknown"
         
         ## TYPELAND
         try:
