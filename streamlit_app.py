@@ -48,7 +48,7 @@ def extract_values(obj, key):
         results = extract(obj, arr, key)
         return results
 
-dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': [], 'source': []}
+dfACols = {'date': [],'title': [],'vehicles': [], 'place': [], 'type_land ':[], 'county': [], 'latlong': [], 'source': []}
 dfA = pd.DataFrame(data = dfACols)
 
 if submit_button and user_input is not None:
@@ -56,13 +56,14 @@ if submit_button and user_input is not None:
         article = user_input.replace('\n', ' ')
 
         messages=[
-                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces\
-                of content from a provided news article and structure them in the following format including the field name exactly as specified ( \
-                date: the data of the incident, if not present use the date 14/09/2023, \
-                title: a suggested article title of around 10 words, \
+                {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
+                of content from a provided news article and structure them in the following format including the field names exactly as specified here ( \
+                date: the date of the incident, if not present use the date 14/09/2023, \
+                title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
-                place: the most detailed place name to which the article refers,\
-                county: the UK county in which the location sits if you can infer that from the location, \
+                place: the place where the encampment has occured,\
+                county: the UK county for the location if you can infer that from the location, \
+                type of land: specify public/private if found, \
                 source: the URL of the article if given)"},
                 {"role": "user", "content": article}
             ]
@@ -98,7 +99,7 @@ if submit_button and user_input is not None:
         art_vehicles = match[0]
 
         ## COUNTY
-        pattern = r'county: (.*?)source:'
+        pattern = r'county: (.*?)type of land:'
         match = re.findall(pattern, response_text)
         art_county = match[0]
 
@@ -107,6 +108,11 @@ if submit_button and user_input is not None:
         match = re.findall(pattern, response_text)
         places = match[0]
         placeurl = quote(places)
+
+        ## TYPELAND
+        pattern = r'type of land: (.*?)source:'
+        match = re.findall(pattern, response_text)
+        art_county = match[0]
 
         ##SOURCE
         pattern = r'source: (.*)'
@@ -139,7 +145,7 @@ if submit_button and user_input is not None:
 
                 latlong = lat + ", " + long
 
-        record = [art_date,art_title,art_vehicles,places,art_county,latlong,art_source]
+        record = [art_date,art_title,art_vehicles,places,type_land,art_county,latlong,art_source]
 
         dfA.loc[1] = record
         time.sleep(5)
