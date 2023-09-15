@@ -19,11 +19,10 @@ GPapikey = st.secrets["GPapikey"]
 st.title('News Data Extractor - DEMO')
 
 # UPLOAD ARTICLES
-st.write('Upload the CSv containing the article list with each article as an individual text field in column 1')
-filename = st.file_uploader('Upload a CSV file', type=['csv'])
+st.write('Paste the article to be analysed in the field below')
 
-dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': []}
-dfA = pd.DataFrame(data = dfACols)
+# Create a large text input field
+user_input = st.text_area("Enter Text Here", height=300)
 
 ## The below function loops through the JSON structure and returns any value matching the key
 def extract_values(obj, key):
@@ -46,16 +45,12 @@ def extract_values(obj, key):
         results = extract(obj, arr, key)
         return results
 
+dfACols = {'date': [],'title': [],'vehicles': [], 'place': [],  'county': [], 'latlong': []}
+dfA = pd.DataFrame(data = dfACols)
 
+if user_input is not None:
 
-if filename is not None:
-
-    #filename = "example_articles.csv"
-    dfArt = pd.read_csv(filename)
-    article_list = dfArt['article']
-
-    for article in article_list:
-        article = article.replace('\n', ' ')
+        article = user_input.replace('\n', ' ')
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces of content from a provided news article and structure them in the format: date: use the date 14/09/2023, title: a suggested article title of around 10 words, vehicles: the number of caravans if mentioned, place: the primary geographical place to which the article refers, county: the county in which the location sits if you can infer that from the location, source: the news publication from which the article is sourced which can be inferred from the URL"},
