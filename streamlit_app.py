@@ -57,7 +57,7 @@ if submit_button and user_input is not None:
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
-                of content from a provided news article and returning them as a text object of key value pairs exactly as specified here ( \
+                of content from a provided news article and returning them as a json object of key value pairs exactly as specified here ( \
                 date: the date of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
