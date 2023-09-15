@@ -57,14 +57,14 @@ if submit_button and user_input is not None:
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
-                of content from a provided news article and structure them in the following format including the field names exactly as specified here ( \
+                of content from a provided news article and structure them in a python dictionary format including the field names exactly as specified here ( \
                 date: the date of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
                 place: the address where the encampment has occured including street, town and county if given,\
                 county: the UK county for the location, e.g. berkshire/hampshire/yorkshire if you can infer that from the location, \
-                type of land: specify public/private if found, \
-                source: the first URL given in the text is any)"},
+                typeofland: specify public/private if found, \
+                source: the first URL given in the text if any)."},
                 {"role": "user", "content": article}
             ]
 
@@ -89,7 +89,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_date = match[0]
         except:
-            art_date = "unknown"
+            art_date = response.text[0]["date"]
             
         ## TITLE
         try:
@@ -97,7 +97,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_title = match[0]
         except:
-            art_title = "unknown"
+            art_title = response.text[0]["title"]
 
         ## VEHICLES
         try:    
@@ -105,13 +105,13 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_vehicles = match[0]
         except:
-            art_vehicles = "unknown"
+            art_vehicles = response.text[0]["vehicles"]
             
         ## COUNTY
         try:
             pattern = r'county: (.*?)type of land:'
             match = re.findall(pattern, response_text)
-            art_county = match[0]
+            art_county = response.text[0]["county"]
         except:
             art_county = "unknown"
 
@@ -122,8 +122,8 @@ if submit_button and user_input is not None:
             places = match[0]
             placeurl = quote(places)
         except:
-            places = "unknown"
-            placeurl = "unknown"
+            places = response.text[0]["place"]
+            placeurl = quote(places)
         
         ## TYPELAND
         try:
@@ -131,7 +131,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             type_land = match[0]
         except:
-            type_land = "unknown"
+            type_land = response.text[0]["typeofland"]
         
         ##SOURCE
         try:    
@@ -139,7 +139,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_source = match[0]
         except:
-            art_source = "unknown"
+            art_source = response.text[0]["source"]
 
         ## EXTRACT LAT LONG FOR PLACENAME
         url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
@@ -148,7 +148,6 @@ if submit_button and user_input is not None:
             responseloc = requests.get(url)
             data = json.dumps(responseloc.json(), sort_keys=True, indent=4)
             data = json.loads(data)
-
         except:
             data = "no response"
 
