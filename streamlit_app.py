@@ -134,12 +134,15 @@ if submit_button and user_input is not None:
                 try:
                     lat = extract_values(data,"lat")
                     lat = str(lat[0])
+                    lat = lat[:7]
+                    
                 except:
                     lat = "not found"
 
                 try:
                     long = extract_values(data,"lng")
                     long = str(long[0])
+                    long = long[:7]
                 except:
                     long = "not found"
 
