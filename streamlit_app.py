@@ -100,30 +100,45 @@ if submit_button and user_input is not None:
             art_title = "unknown"
 
         ## VEHICLES
-        pattern = r'vehicles: (.*?)place:'
-        match = re.findall(pattern, response_text)
-        art_vehicles = match[0]
-
+        try:    
+            pattern = r'vehicles: (.*?)place:'
+            match = re.findall(pattern, response_text)
+            art_vehicles = match[0]
+        except:
+            art_vehicles = "unknown"
+            
         ## COUNTY
-        pattern = r'county: (.*?)type of land:'
-        match = re.findall(pattern, response_text)
-        art_county = match[0]
+        try:
+            pattern = r'county: (.*?)type of land:'
+            match = re.findall(pattern, response_text)
+            art_county = match[0]
+        except:
+            art_county = "unknown"
 
         ## PLACE
-        pattern = r'place: (.*)county:'
-        match = re.findall(pattern, response_text)
-        places = match[0]
-        placeurl = quote(places)
-
+        try:
+            pattern = r'place: (.*)county:'
+            match = re.findall(pattern, response_text)
+            places = match[0]
+            placeurl = quote(places)
+        except:
+            placeurl = "unknown"
+        
         ## TYPELAND
-        pattern = r'type of land: (.*?)source:'
-        match = re.findall(pattern, response_text)
-        type_land = match[0]
-
+        try:
+            pattern = r'type of land: (.*?)source:'
+            match = re.findall(pattern, response_text)
+            type_land = match[0]
+        except:
+            type_land = "unknown"
+        
         ##SOURCE
-        pattern = r'source: (.*)'
-        match = re.findall(pattern, response_text)
-        art_source = match[0]
+        try:    
+            pattern = r'source: (.*)'
+            match = re.findall(pattern, response_text)
+            art_source = match[0]
+        except:
+            art_source = "unknown"
 
         ## EXTRACT LAT LONG FOR PLACENAME
         url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
