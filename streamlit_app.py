@@ -22,7 +22,7 @@ st.title('News Data Extractor - DEMO')
 st.write('Paste the article to be analysed in the field below. Ideally paste: Title, URL, Article content as text')
 
 # Create a large text input field
-user_input = st.text_area("Enter Text Here", height=300)
+user_input = st.text_area("Enter Text Here", height=200)
 
 ## The below function loops through the JSON structure and returns any value matching the key
 def extract_values(obj, key):
