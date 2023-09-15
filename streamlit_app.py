@@ -57,7 +57,7 @@ if submit_button and user_input is not None:
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
-                of content from a provided news article and structure them in a python dictionary format including the field names exactly as specified here ( \
+                of content from a provided news article and returning them as a text object of key value pairs exactly as specified here ( \
                 date: the date of the incident, if not present use the date 14/09/2023, \
                 title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
@@ -89,7 +89,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_date = match[0]
         except:
-            art_date = response.text[0]["date"]
+            art_date = response_text[0]["date"]
             
         ## TITLE
         try:
@@ -97,7 +97,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_title = match[0]
         except:
-            art_title = response.text[0]["title"]
+            art_title = response_text[0]["title"]
 
         ## VEHICLES
         try:    
@@ -105,7 +105,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_vehicles = match[0]
         except:
-            art_vehicles = response.text[0]["vehicles"]
+            art_vehicles = response_text[0]["vehicles"]
             
         ## COUNTY
         try:
@@ -131,7 +131,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             type_land = match[0]
         except:
-            type_land = response.text[0]["typeofland"]
+            type_land = response_text[0]["typeofland"]
         
         ##SOURCE
         try:    
@@ -139,7 +139,7 @@ if submit_button and user_input is not None:
             match = re.findall(pattern, response_text)
             art_source = match[0]
         except:
-            art_source = response.text[0]["source"]
+            art_source = response_text[0]["source"]
 
         ## EXTRACT LAT LONG FOR PLACENAME
         url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
