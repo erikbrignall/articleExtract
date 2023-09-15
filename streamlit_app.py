@@ -54,8 +54,13 @@ if user_input is not None:
 
         messages=[
                 {"role": "system", "content": "You are a news analyst who extracts and summarises news articles. You extract 6 different pieces\
-                of content from a provided news article and structure them in the format: date: use the date 14/09/2023, title: a suggested\
-                article title of around 10 words, vehicles: the number of caravans or vehicles if mentioned as an integer, place: the primary geographical place to which the article refers, county: the county in which the location sits if you can infer that from the location, source: the news publication from which the article is sourced which can be inferred from the URL"},
+                of content from a provided news article and structure them in the format: \
+                date: use the date 14/09/2023, \
+                title: a suggested article title of around 10 words, \
+                vehicles: the number of caravans or vehicles if mentioned as an integer, \
+                place: the primary geographical place to which the article refers,\
+                county: the UK county in which the location sits if you can infer that from the location, \
+                source: the src URL if given"},
                 {"role": "user", "content": article}
             ]
 
@@ -100,6 +105,11 @@ if user_input is not None:
         places = match[0]
         placeurl = quote(places)
 
+        ##SOURCE
+        pattern = r'source: (.*)'
+        match = re.findall(pattern, response_text)
+        art_source = match[0]
+
         ## EXTRACT LAT LONG FOR PLACENAME
         url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
 
@@ -126,7 +136,7 @@ if user_input is not None:
 
                 latlong = lat + ", " + long
 
-        record = [art_date,art_title,art_vehicles,places,art_county,latlong]
+        record = [art_date,art_title,art_vehicles,places,art_county,latlong,art_source]
 
         dfA.loc[len(dfA)] = record
         time.sleep(5)
