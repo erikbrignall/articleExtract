@@ -78,7 +78,7 @@ if submit_button and user_input is not None:
         response_text = response.choices[0].message.content
         response_text = response_text.replace('\n', ' ').lower()
 
-        #st.write(response_text)
+        st.write(response_text)
             
         # extract individual elements from response
 
