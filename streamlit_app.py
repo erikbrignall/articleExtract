@@ -62,7 +62,7 @@ if submit_button and user_input is not None:
                 title: a suggested article title of around 6 words, \
                 vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
                 place: the address where the encampment has occured including street, town and county if given,\
-                county: the UK county for the location if you can infer that from the location, \
+                county: the UK county for the location, e.g. berkshire/hampshire/yorkshire if you can infer that from the location, \
                 type of land: specify public/private if found, \
                 source: the first URL given in the text is any)"},
                 {"role": "user", "content": article}
