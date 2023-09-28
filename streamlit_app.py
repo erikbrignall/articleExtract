@@ -134,83 +134,83 @@ if filename is not None:
     df = pd.read_csv(filename)
     articles  = df['articles']
 
-# create dataframe to store outputs
-dfACols = {'date': [],'title': [],'vehicles': [], 'place': [], 'type_land ':[], 'county': [], 'latlong': [], 'source': []}
-dfA = pd.DataFrame(data = dfACols)
-
-for url in articles:
-
-    # Select a random header
-    headers = random.choice(headers_list)
-    response = requests.get(url, headers=headers)
-
-    # Check if the GET request is successful
-    if response.status_code == 200:
-        # Create a BeautifulSoup object and specify the parser
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        # Find the main content of the article. You need to inspect the HTML of the webpage to find the appropriate tag and class name.
-        # In this example, we assume that the main content is in a <div> tag with class name 'article-content'.
-        headers = soup.find_all(['h1', 'h2', 'p'])
-
-        article = ""
-
-        if headers:
-            # Extract and print the textual content of each tag
-            for tag in headers:
-                #print(tag.name.upper())
-                #print(tag.get_text(strip=True))
-                x = tag.get_text(strip=True)
-                article = article + ". " + x + " "
-                article = article.split()
-                article = article[:250]
-                article = ' '.join(article)
-
+    # create dataframe to store outputs
+    dfACols = {'date': [],'title': [],'vehicles': [], 'place': [], 'type_land ':[], 'county': [], 'latlong': [], 'source': []}
+    dfA = pd.DataFrame(data = dfACols)
+    
+    for url in articles:
+    
+        # Select a random header
+        headers = random.choice(headers_list)
+        response = requests.get(url, headers=headers)
+    
+        # Check if the GET request is successful
+        if response.status_code == 200:
+            # Create a BeautifulSoup object and specify the parser
+            soup = BeautifulSoup(response.text, 'html.parser')
+    
+            # Find the main content of the article. You need to inspect the HTML of the webpage to find the appropriate tag and class name.
+            # In this example, we assume that the main content is in a <div> tag with class name 'article-content'.
+            headers = soup.find_all(['h1', 'h2', 'p'])
+    
+            article = ""
+    
+            if headers:
+                # Extract and print the textual content of each tag
+                for tag in headers:
+                    #print(tag.name.upper())
+                    #print(tag.get_text(strip=True))
+                    x = tag.get_text(strip=True)
+                    article = article + ". " + x + " "
+                    article = article.split()
+                    article = article[:250]
+                    article = ' '.join(article)
+    
+            else:
+                print("Could not find any header or paragraph content.")
         else:
-            print("Could not find any header or paragraph content.")
-    else:
-        print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
-
-    article = article + " " + url
+            print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
     
-    messages=[
-        {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
-        of content from a provided news article and returning them as a json object of key value pairs exactly as specified here ( \
-        date: the date of the incident, if not present use the date 14/09/2023, \
-        title: a suggested article title of around 6 words, \
-        vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
-        place: the address where the encampment has occured including street, town and county if given,\
-        county: the UK county for the location, e.g. berkshire/hampshire/yorkshire if you can infer that from the location, \
-        typeofland: specify public/private if found, \
-        source: the first URL given in the text if any)."},
-        {"role": "user", "content": article}
-    ]
-
-    # FETCH RESPONSE
-    response = openai.ChatCompletion.create(
-        model='gpt-3.5-turbo',
-        temperature = 0.1,
-        stop = None,
-        messages=messages)
-
-    response_text = response.choices[0].message.content
-    response_text = response_text.replace('\n', ' ').lower()
-    json_obj = json.loads(response_text)
+        article = article + " " + url
+        
+        messages=[
+            {"role": "system", "content": "You are a news analyst who extracts and summarises news articles about traveller and gypsy encampments. You extract 7 different pieces\
+            of content from a provided news article and returning them as a json object of key value pairs exactly as specified here ( \
+            date: the date of the incident, if not present use the date 14/09/2023, \
+            title: a suggested article title of around 6 words, \
+            vehicles: the number of caravans or vehicles if mentioned displayed solely as an integer, \
+            place: the address where the encampment has occured including street, town and county if given,\
+            county: the UK county for the location, e.g. berkshire/hampshire/yorkshire if you can infer that from the location, \
+            typeofland: specify public/private if found, \
+            source: the first URL given in the text if any)."},
+            {"role": "user", "content": article}
+        ]
     
-    row = extractjson(response_text)
-    #print(row)
+        # FETCH RESPONSE
+        response = openai.ChatCompletion.create(
+            model='gpt-3.5-turbo',
+            temperature = 0.1,
+            stop = None,
+            messages=messages)
     
-    dfA.loc[len(dfA.index)] = row
-    time.sleep(3)
+        response_text = response.choices[0].message.content
+        response_text = response_text.replace('\n', ' ').lower()
+        json_obj = json.loads(response_text)
+        
+        row = extractjson(response_text)
+        #print(row)
+        
+        dfA.loc[len(dfA.index)] = row
+        time.sleep(3)
+        
+        
+    st.dataframe(dfA, width=800)
+    def convert_df_to_csv(df):
+      return df.to_csv().encode('utf-8')
     
-    
-st.dataframe(dfA, width=800)
-def convert_df_to_csv(df):
-  return df.to_csv().encode('utf-8')
-
-st.download_button(
-  label="Download data as CSV",
-  data=convert_df_to_csv(dfA),
-  file_name='article_summarys.csv',
-  mime='text/csv',
-)
+    st.download_button(
+      label="Download data as CSV",
+      data=convert_df_to_csv(dfA),
+      file_name='article_summarys.csv',
+      mime='text/csv',
+    )
