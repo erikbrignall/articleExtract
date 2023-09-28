@@ -56,6 +56,7 @@ def extractjson(obj):
     # Extract latlong from google places API
     placeurl = quote(place)
     url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + placeurl +"&key=" + GPapikey
+    print(url)
     try:    
         responseloc = requests.get(url)
         data = json.dumps(responseloc.json(), sort_keys=True, indent=4)
