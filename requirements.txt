@@ -1,4 +1,4 @@
 openai
 pandas
 streamlit
-bs4
+beautifulsoup4
