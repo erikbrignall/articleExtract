@@ -1,7 +1,10 @@
 import requests
 import pandas as pd
 import json
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+except:
+    from BeautifulSoup import BeautifulSoup 
 from datetime import datetime
 import openai
 import random # for random header selection
