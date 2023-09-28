@@ -11,6 +11,7 @@ import random # for random header selection
 from collections import OrderedDict
 from urllib.parse import quote # for url encoding for place lookup
 import time
+import streamlit as st
 
 openai.api_key = st.secrets["OpenAIapikey"]
 GPapikey = st.secrets["GPapikey"]
