@@ -1,4 +1,4 @@
 openai
 pandas
 streamlit
-beautifulsoup4==4.10.0
+beautifulsoup4
